@@ -1,4 +1,4 @@
-package com.roomservice.notification.rest;
+package com.roomservice.notification.controller;
 
 public class Notify {
 

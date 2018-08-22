@@ -1,4 +1,4 @@
-package com.roomservice.notification.rest;
+package com.roomservice.notification.controller;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -30,12 +30,14 @@ import javax.xml.transform.stream.StreamResult;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.http.HttpStatus;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -43,6 +45,7 @@ import org.w3c.dom.Node;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.roomservice.notification.dao.MongoDao;
+import com.roomservice.notification.entity.OpportunityData;
 import com.roomservice.notification.entity.OpportunitySubject;
 import com.roomservice.notification.entity.ReservationNotification;
 
@@ -60,22 +63,29 @@ public class ManagerController {
 
     @RequestMapping("/health")
     public Notify health(@RequestParam(value="name", defaultValue="World") String name) {
-        return new Notify(counter.incrementAndGet(),
-                            String.format(template, name));
+        return new Notify(counter.incrementAndGet(), String.format(template, name));
     }
     
-    @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value = "opportunity",
-            method = RequestMethod.POST)
+    @RequestMapping(value = "opportunity", method = RequestMethod.POST)
     public void opportunity(@Valid @RequestBody OpportunitySubject opportunitySubject, HttpServletResponse response) {
     	
     	boolean isValid = MongoDao.getInstance().importOpportunity(Collections.singletonList(opportunitySubject));
     	if(! isValid) {
     		// invalid request message
-    		// TODO: check if return 400?
     		response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
     	}
     	
+    }
+    
+    @GetMapping("/fire")
+    public String greetingForm(Model model) {
+        model.addAttribute("opportunityForm", new OpportunityData());
+        return "opportunityForm";
+    }
+
+    @PostMapping("/greeting")
+    public String greetingSubmit(@ModelAttribute OpportunityData opportunityData) {
+        return "result";
     }
     
     public static void main(String[] args) {
