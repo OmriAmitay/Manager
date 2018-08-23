@@ -7,9 +7,40 @@
 <body>
 	<h1>Form</h1>
     <form action="#" th:action="@{/greeting}" th:object="${opportunityForm}" method="post">
+    
+    	<h3>Opportunity:</h3>
+    	<br></br>
     	<p>opportunityId: <input type="text" th:field="*{opportunityId}" /></p>
         <p>entityType: <input type="text" th:field="*{entityType}" /></p>
 		<p>entityId: <input type="text" th:field="*{entityId}" /></p>
+		<p>arrival: <input type="text" th:field="*{arrival}" /></p>
+		<p>departure: <input type="text" th:field="*{departure}" /></p>
+		<p>numOfNights: <input type="text" th:field="*{numOfNights}" /></p>
+		<p>numOfNights: <input type="text" th:field="*{numOfNights}" /></p>
+		<p>board: <input type="text" th:field="*{board}" /></p>
+		<p>price: <input type="text" th:field="*{price}" /></p>
+		<p>operator: <input type="text" th:field="*{operator}" /></p>
+		<p>currency: <input type="text" th:field="*{currency}" /></p>
+		<p>filter: <input type="text" th:field="*{filter}" /></p>
+		<p>countryCode: <input type="text" th:field="*{countryCode}" /></p>
+		<p>adultsCount: <input type="text" th:field="*{adultsCount}" /></p>
+		<p>defaultCurrency: <input type="text" th:field="*{defaultCurrency}" /></p>
+		<p>payAtTheHotel: <input type="text" th:field="*{payAtTheHotel}" /></p>
+		<p>showSpecialDeals: <input type="text" th:field="*{showSpecialDeals}" /></p>
+		<p>onRequest: <input type="text" th:field="*{onRequest}" /></p>
+		<p>getPackageRates: <input type="text" th:field="*{getPackageRates}" /></p>
+		<p>active: <input type="text" th:field="*{active}" /></p>
+		
+		<h3>Hotel Connect (Push):</h3>
+		<br></br>
+		<p>push: <input type="text" th:field="*{push}" /></p>
+		<p>hotelCode: <input type="text" th:field="*{hotelCode}" /></p>
+		<p>bookingLimit: <input type="text" th:field="*{bookingLimit}" /></p>
+		<p>invTypeCode: <input type="text" th:field="*{invTypeCode}" /></p>
+		<p>ratePlanCode: <input type="text" th:field="*{ratePlanCode}" /></p>
+		<p>price: <input type="text" th:field="*{price}" /></p>
+		<p>status: <input type="text" th:field="*{status}" /></p>
+		
         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 </body>
